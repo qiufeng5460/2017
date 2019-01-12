@@ -79,6 +79,14 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 /*--------------------------------------------------------------
 10.0 Links
 --------------------------------------------------------------*/
+/* Hover effects */
+/*20190101:在archive页面的title list中，hovering the title，去掉下划线效果，而是将字体变为土色. by zhong*/
+.entry-title a:focus,
+.entry-title a:hover{
+    color:#eb7a00;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
 
 /*--------------------------------------------------------------
 11.0 Featured Image Hover
@@ -150,9 +158,58 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 
 /* Post Landing Page */
 
+body.page:not(.twentyseventeen-front-page) .entry-title {
+	color: #df6127;
+	font-size: 14px;
+	font-size: 2rem;
+}
+/*20190107：use flex by zhong*/
+/*20190103:去掉entry-title下部空白，设置P元素上部空白 . by zhong*/
+/*20190103:设置entry-header中p元素上部空白，去掉下部空白. by zhong*/
+/*20181229:change P to inline, and keep title&date in one row. by zhong*/
+.entry-header .entry-title{
+  
+    flex:0 0 75%;
+    margin-top: 1em;
+}
+
+/*20190107：use flex ,解决date字段无法处于header框右下角的问题。by zhong*/
+.entry-header .entry-date{
+
+    flex:0 0 15%;
+    margin-bottom: 0.25em;
+    margin-top: 1em;
+}
+
+/*20190101:not display entry-mate. by zhong*/
+.entry-meta {
+	display:none;
+}
+
 /* Aligned blockquotes */
 
 /* Blog landing, search, archives */
+/*20190107：use flex by zhong*/
+/*20190103:in archive view, draw the dash belowing title&date. by zhong*/
+/*20190110:not control entry-header in singe=-post. by zhong*/
+body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header {
+
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        border-bottom: dashed thin;
+}
+
+.single-post .entry-header{
+        margin-bottom: 1.5em;
+        display:flex;
+                justify-content:center;
+}
+
+.single-post .entry-header .entry-title{
+     flex:0 0 auto;
+ 
+}
 
 /* More tag */
 
@@ -219,7 +276,10 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 @media screen and (min-width: 48em) {
 
 	/* Typography */
-
+        body {
+		font-size: 16px;
+		font-size: 0.9rem;
+	}
 	/* Layout */
 
 	/* Site Branding */
@@ -261,9 +321,21 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 	/* Front Page - Recent Posts */
 
 	/* Posts */
+        /*20190110:调整single-post文章与navi之间的高度。 by zhong*/
+        .site-content {
+		padding: 3em 0 0;
+	}
 
 	/* Blog, archive, search */
-
+        /*
+        body.page-two-column:not(.archive) #primary .entry-header {
+	        display:none;
+        }
+        
+        body.page-two-column:not(.archive) #primary .entry-content{
+	      width:100%;
+	}
+        */
 	/* Entry content */
 
 	/* without sidebar */
@@ -275,6 +347,11 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 	/* Post formats */
 
 	/* Pages */
+        /*20181229:not display page header in archive page. by zhong */
+        .archive.page-one-column:not(.has-sidebar) .page-header {
+		display:none;
+
+	}
 
 	/* 404 page */
 
