@@ -40,10 +40,17 @@
                         //20190103:check wx_link firstly, if not, open default link.by zhong
                         $title_link=get_post_meta(get_the_id(),'wx_link',true);
                         $title_link=$title_link ? $title_link:get_permalink();
+                        if(is_sticky()){
+                            //20190223:设置置顶post 
+                            the_title( '<p class="entry-title" style="color:red;">[置顶]  <a target="_blank" href="' . esc_url( $title_link ) . '" rel="bookmark">', '</a></p>' );
+                        }
+                        else{
                         //20190101:add target="_blank" for open URL in new view. by zhong
-                        the_title( '<p class="entry-title"><a target="_blank" href="' . esc_url( $title_link ) . '" rel="bookmark">', '</a></p>' );
+                              the_title( '<p class="entry-title"><a target="_blank" href="' . esc_url( $title_link ) . '" rel="bookmark">', '</a></p>' );
+                        }
                         //20181229:place date after the title ,and keep them in the one row. by zhong
                         //20190108:don't get_modify_date function because it output the modify date
+                        
                         echo '<p class="entry-date">';
                         echo get_the_date();
                         echo '</p>';           

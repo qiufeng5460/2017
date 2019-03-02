@@ -139,7 +139,18 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 /*--------------------------------------------------------------
 13.0 Layout
 --------------------------------------------------------------*/
+/*20190131：重新定义网页整体背景*/
+body {
+	background: #fff;
+	/* Fallback for when there is no custom background color defined. */
+}
 
+
+/*20190131:不显示左导航栏当屏幕宽度<48em*/
+.archive.page-one-column .site-left-side,
+.page:not(.twentyseventeen-front-page) .site-left-side{
+      display:none;
+        }
 /*--------------------------------------------------------------
 13.1 Header
 --------------------------------------------------------------*/
@@ -148,10 +159,15 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 13.2 Front Page
 --------------------------------------------------------------*/
 
+
 /*--------------------------------------------------------------
 13.3 Regular Content
 --------------------------------------------------------------*/
+/*20190201:内容区背景色调整，会覆盖body背景色*/
+.site-content-contain {
+	background-color: #fcf9f2;
 
+}
 /*--------------------------------------------------------------
 13.4 Posts
 --------------------------------------------------------------*/
@@ -172,13 +188,18 @@ body.page:not(.twentyseventeen-front-page) .entry-title {
     flex:0 0 75%;
     margin-top: 1em;
 }
-
+/*20190201:修改字体颜色*/
+.entry-title a {
+	color: #62708a;
+}
 /*20190107：use flex ,解决date字段无法处于header框右下角的问题。by zhong*/
 .entry-header .entry-date{
 
     flex:0 0 15%;
     margin-bottom: 0.25em;
     margin-top: 1em;
+    /*20190216:将日期字体缩小避免换行*/
+    font-size:0.8rem;
 }
 
 /*20190101:not display entry-mate. by zhong*/
@@ -224,7 +245,37 @@ body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header
 /*--------------------------------------------------------------
 13.5 Pages
 --------------------------------------------------------------*/
+/*20190218:在page时，不显示标题，因为在breadcrumbs里已经显示标题李李了*/
+.page .entry-header{
+    display:none;
+}
 
+.page .entry-content{
+    margin-top:3rem;
+}
+
+.page .entry-content h1,h2,h3.h4,h5,h6{
+    padding-top: 0;
+}
+/*20190220:师资力量page设置*/
+.page .teacher_name{
+    text-align:center;
+    font-size:24px;
+}
+.page .teacher_show{
+    display:inline-block;
+    margin-left: 2.5rem;
+
+}
+
+.page .teacher_show a img{
+    box-shadow: none;
+}
+/*20190220:去掉a的下划线*/
+.page .teacher_show a{
+    text-decoration: none;
+        box-shadow: none;
+}
 /* 404 page */
 
 
@@ -274,14 +325,96 @@ body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header
 }
 
 @media screen and (min-width: 48em) {
-
-	/* Typography */
+    	/* Typography */
         body {
 		font-size: 16px;
 		font-size: 0.9rem;
 	}
 	/* Layout */
+        /*20190115:add left menu for page. by zhong.*/
+        .page:not(.twentyseventeen-front-page) .site-left-side,
+        .archive.page-one-column .site-left-side{
 
+            display:block;
+            float:left;
+            width:20%;
+            background: #f1ebea;
+        }
+        
+        .page.page-one-column:not(.twentyseventeen-front-page) #primary,
+        .archive.page-one-column:not(.has-sidebar) #primary{
+            float:right;
+            width:75%;
+
+        }
+    
+        /*20190128:add icon for left menu, and adjust the interval between icon and font. by zhong*/
+        .archive.page-one-column .navigation-left .left-navigation li, 
+        .page.page-one-column:not(.twentyseventeen-front-page) .navigation-left .left-navigation li{
+           list-style:none;
+           
+           line-height:2.875rem;
+           /*20190131:在48em~67em之间左导航栏文字大小设为12px，避免浏览器缩小时文字超出左导航栏右边界*/
+           font-size:12px;
+           font-size:0.8rem;
+           /*20190128:调整icon与左侧边的距离. by zhong*/
+           padding-left: 1.5rem;
+        }
+
+        .archive.page-one-column .navigation-left .left-navigation li a,        
+        .page.page-one-column:not(.twentyseventeen-front-page) .navigation-left .left-navigation li a{
+           background: url(assets/images/icon6.jpg) no-repeat left center;
+           /*20190128:调整文字与icon的距离. by zhong*/
+           padding-left:2.25rem;
+
+        }
+        
+        /*20190129:handle the left menu title*/
+        .archive.page-one-column .navigation-left .left-navigation .left_menu_title,        
+        .page.page-one-column:not(.twentyseventeen-front-page) .navigation-left .left-navigation .left_menu_title{
+           line-height:3.26rem;
+           font-size:1.2rem;
+           color:#fffa9c;
+           text-align: center;
+           background: url(assets/images/xykx.jpg) round;
+           height:5.625rem;
+        }
+        
+
+        /*20190131:设置左导航栏选中item背景图片，设置为round图片可以自适应调整*/
+        .archive.page-one-column .navigation-left .left-navigation .left_current_item,        
+        .page.page-one-column:not(.twentyseventeen-front-page) .navigation-left .left-navigation .left_current_item{
+            /*20190131:使用svg格式*/
+            background:url(assets/images/nav1.svg) round;
+ 
+            margin-right:1rem;  
+            margin-left: 0.8rem;
+            line-height: 2.5rem;
+            height:2.5rem;
+        }
+        /*20190131:设置左导航栏选中item的文字样式*/  
+        .archive.page-one-column .navigation-left .left-navigation .left_current_item a,
+        .page.page-one-column:not(.twentyseventeen-front-page) .navigation-left .left-navigation .left_current_item a{
+            background:none;
+            color:#fff;
+            padding-left:1.5rem;
+        }
+           
+        /*20190217:breadcrumbs display,use flex*/
+        .page .breadcrumbs_nav,
+        .archive .breadcrumbs_nav {
+
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-end;
+            border-bottom: solid 1px #ececec;
+            color:#62708a;
+        }
+        .page .breadcrumbs_nav h2,
+        .archive .breadcrumbs_nav h2{
+            color:#62708a;
+        }
+        
 	/* Site Branding */
 
 	/* Navigation */
@@ -365,14 +498,19 @@ body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header
 
 	/* Footer */
 
-	/* Gallery Columns */
-
+	/* Gallery Columns */     
 }
 
 @media screen and ( min-width: 67em ) {
+        
+         /*20190128:add icon for left menu, and adjust the interval between icon and font. by zhong*/
+        .archive.page-one-column .navigation-left .left-navigation li, 
+        .page.page-one-column:not(.twentyseventeen-front-page) .navigation-left .left-navigation li{
+           font-size:16px;
+           font-size:1rem;
 
-	/* Layout */
-
+        }
+ 
 	/* Navigation */
         
         /*20181220:将上下padding缩小到1.4px以减小topmenu的高度.事实上topmenu的高度由其中的字体大小决定。by Z*/
@@ -389,6 +527,7 @@ body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header
 }
 
 @media screen and ( min-width: 79em ) {
+
 
 }
 

@@ -23,13 +23,54 @@ get_header(); ?>
 		</header><!-- .page-header -->
 	<?php endif; ?>
 
+        <!-- 20190124:add left menu.by zhong-->
+	<aside class="site-left-side">
+
+		<?php if ( has_nav_menu( 'left' ) ) : ?>
+			<div id="left-menu" class="navigation-left">
+
+					<?php get_template_part( 'template-parts/navigation/navigation', 'left' ); ?>
+
+			</div><!-- .navigation-left -->
+		<?php endif; ?>
+
+	</aside><!-- site-left-side -->
+                
 	<div id="primary" class="content-area">
+            <div class="breadcrumbs_nav">
+                <h2 class="breadcrumbs_title"><?php echo twentyseventeen_child_get_current_menu_title();  ?></h2>
+                <p class="breadcrumbs_path"><?php twentyseventeen_child_breadcrumbs(); ?></p>
+            </div>
 		<main id="main" class="site-main" role="main">
 
 		<?php
 		if ( have_posts() ) : ?>
-			<?php
-			/* Start the Loop */
+
+               <!--20190223:先显示置顶post-->    
+                <?php
+                  query_posts(array(
+                            "category__in" => array(get_query_var("cat")),
+                             "post__in" => get_option("sticky_posts"),
+                                  )
+                            );
+                  while(have_posts()) : the_post();
+
+                        get_template_part( 'template-parts/post/content', 'title' );
+
+                 endwhile;
+                 wp_reset_query();
+               ?>                 
+                 <!--20190223:先显示置顶post--> 
+                                   
+			<?php       
+                        /*20190223:再显示非置顶post*/
+                            query_posts(array(
+        "category__in" => array(get_query_var("cat")),
+        "post__not_in" => get_option("sticky_posts"),
+        )
+    );
+                        
+                      	/* Start the Loop */
 			while ( have_posts() ) : the_post();
 
 				/*
@@ -42,6 +83,9 @@ get_header(); ?>
                         get_template_part( 'template-parts/post/content', 'title' );
 
 			endwhile;
+                            wp_reset_query();
+                            
+                    
 
 			the_posts_pagination( array(
 				'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',

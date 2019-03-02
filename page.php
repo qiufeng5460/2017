@@ -18,7 +18,25 @@
 get_header(); ?>
 
 <div class="wrap">
+    
+        <!-- 20190114:add left menu.by zhong-->
+	<aside class="site-left-side">
+
+		<?php if ( has_nav_menu( 'left' ) ) : ?>
+			<div id="left-menu" class="navigation-left">
+
+					<?php get_template_part( 'template-parts/navigation/navigation', 'left' ); ?>
+
+			</div><!-- .navigation-left -->
+		<?php endif; ?>
+
+	</aside><!-- site-left-side -->
+    
 	<div id="primary" class="content-area">
+            <div class="breadcrumbs_nav">
+                <h2 class="breadcrumbs_title"><?php echo twentyseventeen_child_get_current_menu_title();  ?></h2>
+                <p class="breadcrumbs_path"><?php twentyseventeen_child_breadcrumbs(); ?></p>
+            </div>
 		<main id="main" class="site-main" role="main">
 
 			<?php
