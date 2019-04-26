@@ -44,13 +44,15 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 
 		<?php
-		if ( have_posts() ) : ?>
-
-               <!--20190223:先显示置顶post-->    
-                <?php
+		if ( have_posts() ) :
+                    
+/*20190424：先显示置顶后显示非置顶的方法导致分页失效
+                    //20190223:先显示置顶post  
+    
                   query_posts(array(
                             "category__in" => array(get_query_var("cat")),
-                             "post__in" => get_option("sticky_posts"),
+                            "post__in" => get_option("sticky_posts"),
+                             //"ignore_sticky_posts" => 0,//20190321：不起作用？
                                   )
                             );
                   while(have_posts()) : the_post();
@@ -59,18 +61,23 @@ get_header(); ?>
 
                  endwhile;
                  wp_reset_query();
-               ?>                 
-                 <!--20190223:先显示置顶post--> 
-                                   
-			<?php       
-                        /*20190223:再显示非置顶post*/
-                            query_posts(array(
-        "category__in" => array(get_query_var("cat")),
-        "post__not_in" => get_option("sticky_posts"),
+*/                              
+                /*20190223:再显示非置顶post*/
+/*                            query_posts(array(
+
         )
     );
-                        
-                      	/* Start the Loop */
+*/                        
+                        if( get_category(get_query_var('cat'))->slug=='teacher_introduce'){
+                           while ( have_posts() ) : the_post();
+                       
+                            get_template_part( 'template-parts/post/content', 'title-image' );
+
+			  endwhile;
+                        }
+                        else{
+                            
+                    /* Start the Loop */
 			while ( have_posts() ) : the_post();
 
 				/*
@@ -78,12 +85,15 @@ get_header(); ?>
 				 * If you want to override this in a child theme, then include a file
 				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 				 */
-			//20181228:only display title.by zhong
+
+                        //20181228:only display title.by zhong
                         //get_template_part( 'template-parts/post/content', get_post_format() );
+                       
                         get_template_part( 'template-parts/post/content', 'title' );
 
 			endwhile;
-                            wp_reset_query();
+                        }
+//                            wp_reset_query();
                             
                     
 
@@ -91,7 +101,8 @@ get_header(); ?>
 				'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
 				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
-			) );
+			)
+                        );
 
 		else :
 
