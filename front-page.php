@@ -20,29 +20,26 @@ get_header(); ?>
 	<main id="main" class="site-main" role="main">
 
         <?php get_template_part( 'template-parts/frontpage/content', 'row-section' ); ?>
-          
-		<?php
-		// Get each of our panels and show the post data.
-		if ( 0 !== twentyseventeen_panel_count() || is_customize_preview() ) : // If we have pages to show.
-
-			/**
-			 * Filter number of front page sections in Twenty Seventeen.
-			 *
-			 * @since Twenty Seventeen 1.0
-			 *
-			 * @param int $num_sections Number of front page sections.
-			 */
-			$num_sections = apply_filters( 'twentyseventeen_front_page_sections', 4 );
-			global $twentyseventeencounter;
-
-			// Create a setting and control for each of the sections available in the theme.
-			for ( $i = 1; $i < ( 1 + $num_sections ); $i++ ) {
-				$twentyseventeencounter = $i;
-				twentyseventeen_front_page_section( null, $i );
-			}
-
-	endif; // The if ( 0 !== twentyseventeen_panel_count() ) ends here. ?>
-
+         
+                        <?php
+                     //20190426:首页添加float window
+                      global $post; // Modify the global post object before setting up post data.
+	              $post_id = 532;
+		      if($post = get_post( $post_id )){
+		         setup_postdata( $post );
+                        $title_link=get_post_meta($post_id,'wx_link',true);
+                        $title_link=$title_link ? $title_link:get_permalink();
+                     ?>
+     <div id="floadAD" class="floadAd">
+        <a class="close" href="javascript:void();" >×关闭</a>
+        <a class="item" href="<?php echo $title_link ?>" target="_blank">
+        <?php the_title();?>    
+        </a>
+    </div>
+    <?php
+        wp_reset_postdata();
+        }
+    ?>
 	</main><!-- #main -->
 </div><!-- #primary -->
 

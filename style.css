@@ -97,9 +97,10 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 --------------------------------------------------------------*/
 
 /*20181219:把top-menu的背景色改为土黄色,rgb(235,122,8),把字体调小为14px. by Z */
+/*20190426:字体调整为16px*/
 .navigation-top{
     background:#eb7a00;
-    font-size:14px;
+    font-size:16px;
 }
 
 
@@ -408,6 +409,19 @@ line-height: 50px;
     -webkit-background-size: cover;
     background-attachment: fixed;
 }
+
+/*20190426:首页漂浮窗口*/
+ .floadAd { position: absolute;z-index: 999900; display: none; }
+ .floadAd .item { 
+     display: block; 
+     color:red;
+     font-size:18px;
+ }
+ .floadAd .item img { vertical-align: bottom; }/* a img 的组合浏览器默认下边会有几个像素的空白，这里可以消除空白*/
+ .floadAD .close{
+     color:#000;
+ }
+
 /*--------------------------------------------------------------
 13.3 Regular Content
 --------------------------------------------------------------*/
@@ -528,7 +542,7 @@ body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header
     text-decoration: none;
         box-shadow: none;
 }
-
+/*20190426:css园长寄语照片*/
 .yuanzhangjiyu img{
     margin-top:20px;
     margin-bottom:10px;
@@ -695,7 +709,12 @@ body:not(.twentyseventeen-front-page):not(.single-post):not(.page) .entry-header
 	.main-navigation li li.focus {
 		background: #f8ce3d;
 	}
-
+       /*20190426:设置top menu的每个li菜单的宽度，以便分散显示*/
+        .main-navigation li {
+		border: 0;
+		display: inline-block;
+                width:160px;
+	}
 	/* Scroll down arrow */
      
         /*20181220:change menu-scroll-down icon color to white and reduce the top-padding by zhong*/

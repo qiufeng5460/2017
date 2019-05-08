@@ -27,6 +27,8 @@ function twentyseventeen_child_scripts() {
     wp_enqueue_script( 'plugslides', get_theme_file_uri( '/assets/js/plug.slides2.2.js' ), array( 'jquery' ), '2.1.2', true );
     //首页老师照片播放
     wp_enqueue_script( 'jzoro', get_theme_file_uri( '/assets/js/jzoro2.js' ), array( 'jquery' ), '2.1.2', true );
+    //20190426:首页通知窗口漂浮
+    wp_enqueue_script( 'float_image', get_theme_file_uri( '/assets/js/float_image.js' ), array( 'jquery' ), '2.1.2', true );
 }
 add_action( 'wp_enqueue_scripts', 'twentyseventeen_child_scripts' );
 
@@ -459,13 +461,16 @@ function putStickyOnTop($posts) {
 
   // 获取所有置顶文章
   $sticky_posts = get_option('sticky_posts');
-
-
+   
+ 
   if ( $wp_query->query_vars['paged'] <= 1 && !empty($sticky_posts) && is_array($sticky_posts) && !get_query_var('ignore_sticky_posts') ) {
-    $stickies1 = get_posts( array( 'post__in' => $sticky_posts ) );
+//20190426：此处必须添加'numberposts' => -1，否则默认只会获取5个post
+      $stickies1 = get_posts( array( 'post__in' => $sticky_posts,'numberposts' => -1 ) );
+
     foreach ( $stickies1 as $sticky_post1 ) {
       // 判断当前是否分类页 
       if($wp_query->is_category == 1 && !has_category($wp_query->query_vars['cat'], $sticky_post1->ID)) {
+
         // 去除不属于本分类的置顶文章
         $offset1 = array_search($sticky_post1->ID, $sticky_posts);
         unset( $sticky_posts[$offset1] );
@@ -496,6 +501,7 @@ function putStickyOnTop($posts) {
         unset( $sticky_posts[$offset1] );
       }
     }
+
 
     $num_posts = count($posts);
 
